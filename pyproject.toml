@@ -1,0 +1,23 @@
+[project]
+name = "entity_normalization"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy",
+  "pandas",
+  "pyarrow",
+  "pydantic>=2",
+  "pronto",
+  "rank-bm25",
+  "rapidfuzz",
+  "sentence-transformers",
+  "torch",
+  "transformers==2.11.0",
+  "tqdm",
+  "orjson>=3.11.8",
+  "scikit-learn>=1.8.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.0,<0.9.0"]
+build-backend = "uv_build"

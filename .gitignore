@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment variables and credentials
+.env
+*.pem
+*.key
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Generated results and large data
+data/
+
+
+# OS
+.DS_Store
