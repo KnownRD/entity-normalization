@@ -1,6 +1,6 @@
 # KnownRD – Biomedical Entity Normalization
 
-entity-normalization is a modular biomedical named entity normalization (NEN) pipeline that links biomedical mentions to standardized concepts in biomedical reference ontologies.
+Entity-normalization is a modular biomedical named entity normalization (NEN) pipeline that links biomedical mentions to standardized concepts in biomedical reference ontologies.
 
 The pipeline combines exact matching, lexical and semantic candidate retrieval, and candidate reranking. The workflow does not require ontology-specific training or architectural modifications, although ontology-adapted models can be incorporated when available.
 
@@ -122,7 +122,7 @@ data/raw/
 ├── hp.owl
 ├── go-basic.owl
 ├── MRSTY.RRF
-└── MRCONSO_ENG.RRF
+└── MRCONSO.RRF
 ```
 ---
 
@@ -252,8 +252,8 @@ Results may include:
 - Candidate retrieval outputs in `/results/retrieval/`
 - Reranking predictions in `/results/reranker/`
 - Evaluation metrics in `/results/`
-- Temporary files (log and llm_reranker files) in ' /tmp/' 
-- Figures and statistical analyses in /results/plots/
+- Temporary files (log and llm_reranker files) in `/tmp/`
+- Figures and statistical analyses in `/results/plots/`
 
 Results are generated during pipeline execution and are not included in the repository by default.
 
