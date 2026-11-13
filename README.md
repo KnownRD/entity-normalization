@@ -212,7 +212,7 @@ The reranking input data should specify:
 - Id_term of the reference ontology (CL, UBERON, HPO, GO, ...)
 - Number of candidates to retrieve.
 - Type of candidates to rerank (sapbert - only sapbert candidates; combined - bm25, fuzzy, n-gram and sapbert candidates) (default="combined") 
-- "Entity name"
+- Entity name
 ---
 
 ## Run evaluation metrics
