@@ -1,12 +1,12 @@
 # KnownRD – Biomedical Entity Normalization
 
-KnownRD is a modular biomedical named entity normalization (NEN) pipeline that links biomedical mentions to standardized concepts in biomedical reference ontologies.
+entity-normalization is a modular biomedical named entity normalization (NEN) pipeline that links biomedical mentions to standardized concepts in biomedical reference ontologies.
 
 The pipeline combines exact matching, lexical and semantic candidate retrieval, and candidate reranking. The workflow does not require ontology-specific training or architectural modifications, although ontology-adapted models can be incorporated when available.
 
 ## Workflow
 
-KnownRD consists of three main stages:
+Consists of three main stages:
 
 **1. Candidate retrieval**
 
@@ -41,7 +41,7 @@ Hierarchically related concepts (ancestors and descendants) can additionally be 
 The repository is organised into the following main directories:
 
 ```text
-KnownRD/
+entity-normalization/
 │
 ├── src/
 │   └── entity_normalization/
@@ -87,7 +87,7 @@ Large ontology files, UMLS resources, model weights and generated results are no
 
 ## Download ontology versions
 
-KnownRD supports multiple biomedical reference ontologies. Ontology files must be downloaded separately.
+The pipeline supports multiple biomedical reference ontologies. Ontology files must be downloaded separately.
 
 The ontology versions used in the current implementation are:
 
@@ -182,10 +182,10 @@ python scripts/retrieval_concepts_pipeline.py \
 The retrieval input data should specify:
 
 - Path to dataset with list of terms to analyze.
-- Name of retrieval output (in /results/retrieval/).
-- Name of exact-matching retrieval output (in /results/retrieval/) .
-- Path to ontology dictionary (in /data/processed/).
-- Path to embeddings dictionary (in /data/processed/).
+- Name of retrieval output (in `/results/retrieval/`).
+- Name of exact-matching retrieval output (in `/results/retrieval/`) .
+- Path to ontology dictionary (in `/data/processed/`).
+- Path to embeddings dictionary (in `/data/processed/`).
 
 ---
 
@@ -207,8 +207,8 @@ python scripts/reranking_candidates_pipeline.py \
 
 The reranking input data should specify:
 
-- Path to input retrieval file (in /results/retrieval/)
-- Path to reference ontology (in /data/raw/)
+- Path to input retrieval file (in `/results/retrieval/`)
+- Path to reference ontology (in `/data/raw/`)
 - Id_term of the reference ontology (CL, UBERON, HPO, GO, ...)
 - Number of candidates to retrieve.
 - Type of candidates to rerank (sapbert - only sapbert candidates; combined - bm25, fuzzy, n-gram and sapbert candidates) (default="combined") 
@@ -233,9 +233,9 @@ python scripts/evaluation_normalization.py \
 ```
 The evaluation input data should specify:
 
-- Path to exact-matching retrieval file (in /results/retrieval/)
-- Path to retrieval file (in /results/retrieval/)
-- Path to reference ontology (in /data/raw/)
+- Path to exact-matching retrieval file (in `/results/retrieval/`)
+- Path to retrieval file (in `/results/retrieval/`)
+- Path to reference ontology (in `/data/raw/`)
 - Id_term of the reference ontology (CL, UBERON, HPO, GO, ...)
 - Number of candidates to retrieve.
 - Type of candidates to rerank (sapbert - only sapbert candidates; combined - bm25, fuzzy, n-gram and sapbert candidates) (default="combined") 
@@ -249,10 +249,10 @@ Generated outputs are organized under the `results/` directory.
 
 Results may include:
 
-- Candidate retrieval outputs in /results/retrieval/
-- Reranking predictions in /results/reranker/
-- Evaluation metrics in /results/
-- Temporary files (log and llm_reranker files) in /tmp/
+- Candidate retrieval outputs in `/results/retrieval/`
+- Reranking predictions in `/results/reranker/`
+- Evaluation metrics in `/results/`
+- Temporary files (log and llm_reranker files) in ' /tmp/' 
 - Figures and statistical analyses in /results/plots/
 
 Results are generated during pipeline execution and are not included in the repository by default.
