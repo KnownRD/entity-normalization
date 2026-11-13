@@ -124,9 +124,6 @@ data/raw/
 ├── MRSTY.RRF
 └── MRCONSO_ENG.RRF
 ```
-
-The expected filenames and directory locations should match the corresponding configuration of the pipeline.
-
 ---
 
 ## Installation
@@ -173,17 +170,22 @@ Candidate retrieval identifies potential reference concepts for each biomedical 
 To run candidate retrieval:
 
 ```bash
-python scripts/retrieval_concepts_pipeline.py\
-        --input
-```
+python scripts/retrieval_concepts_pipeline.py \
+        --terms_file $"path" \
+        --output_file $"name" \
+        --output_exact $"name" \
+        --lexical_jsonl_file $"path" \
+        --embeddings_path $"path"
 
+        
+```
 The retrieval input data should specify:
 
-- Input dataset and entity type.
-- Reference ontology.
-- Retrieval methods.
-- Number of candidates to retrieve.
-- Output directory.
+- Path to dataset with list of terms to analyze.
+- Name of retrieval output (in /results/retrieval/).
+- Name of exact-matching retrieval output (in /results/retrieval/) .
+- Path to ontology dictionary (in /data/processed/).
+- Path to embeddings dictionary (in /data/processed/).
 
 ---
 
@@ -194,17 +196,23 @@ Candidate selection reranks the concepts retrieved in the previous stage.
 To run candidate selection:
 
 ```bash
-python scripts/reranking_candidates_pipeline.py
+python scripts/reranking_candidates_pipeline.py \
+        --results_normalization $"path" \
+        --ontology_owl_file $"path" \
+        --id $"id_ontology" \
+        --k $"num_k" \
+        --method $"combined/sapbert" \
+        --entity $"name_entity"
 ```
 
 The reranking input data should specify:
 
-- Input dataset and entity type.
-- Reference ontology.
-- Retrieval methods.
+- Path to input retrieval file (in /results/retrieval/)
+- Path to reference ontology (in /data/raw/)
+- Id_term of the reference ontology (CL, UBERON, HPO, GO, ...)
 - Number of candidates to retrieve.
-- Output directory.
-
+- Type of candidates to rerank (sapbert - only sapbert candidates; combined - bm25, fuzzy, n-gram and sapbert candidates) (default="combined") 
+- "Entity name"
 ---
 
 ## Run evaluation metrics
@@ -214,22 +222,38 @@ The pipeline provides evaluation modules for candidate retrieval, reranking and 
 To run the evaluation:
 
 ```bash
-python scripts/evaluation_normalization.py
+python scripts/evaluation_normalization.py \
+        --exact_normalization $"path" \
+        --results_normalization $"path" \
+        --ontology_owl_file $"path" \
+        --id $"id_ontology" \
+        --k $"num_k" \
+        --method $"combined/sapbert" \
+        --entity $"name_entity"
 ```
+The evaluation input data should specify:
+
+- Path to exact-matching retrieval file (in /results/retrieval/)
+- Path to retrieval file (in /results/retrieval/)
+- Path to reference ontology (in /data/raw/)
+- Id_term of the reference ontology (CL, UBERON, HPO, GO, ...)
+- Number of candidates to retrieve.
+- Type of candidates to rerank (sapbert - only sapbert candidates; combined - bm25, fuzzy, n-gram and sapbert candidates) (default="combined") 
+- Entity name
 
 ---
 
 ## Results directory
 
-Generated outputs are organised under the `results/` directory.
+Generated outputs are organized under the `results/` directory.
 
 Results may include:
 
-- Candidate retrieval outputs.
-- Reranking predictions.
-- Evaluation metrics.
-- Performance comparisons across retrieval and reranking methods.
-- Figures and statistical analyses.
+- Candidate retrieval outputs in /results/retrieval/
+- Reranking predictions in /results/reranker/
+- Evaluation metrics in /results/
+- Temporary files (log and llm_reranker files) in /tmp/
+- Figures and statistical analyses in /results/plots/
 
 Results are generated during pipeline execution and are not included in the repository by default.
 
