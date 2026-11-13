@@ -17,7 +17,7 @@ from entity_normalization.llm_reranker_prompt import classify
 import importlib
 from pathlib import Path
 
-def llm_reranker(results_noramlization, ontology_owl_file, k, method,ID, entity):
+def llm_reranker(results_normalization, ontology_owl_file, k, method,ID, entity):
     module = importlib.import_module(
             f"entity_normalization.parse_{ID.lower()}_ontology"
         )
@@ -52,30 +52,30 @@ def llm_reranker(results_noramlization, ontology_owl_file, k, method,ID, entity)
     )
     
     if method == "combined":
-        results_noramlization_filter = results_noramlization[results_noramlization["method"] != "sapbert_cell"]
+        results_normalization_filter = results_normalization[results_normalization["method"] != "sapbert_cell"]
     else:
-        results_noramlization_filter = results_noramlization[results_noramlization["method"] != method]
+        results_normalization_filter = results_normalization[results_normalization["method"] != method]
     
                 
-    results_noramlization_topk = results_noramlization_filter[results_noramlization_filter["rank"] <= k][["candidate", "label", "query"]].drop_duplicates()
-    results_noramlization_topk = results_noramlization_topk[["candidate", "query"]].drop_duplicates().merge(grouped, on = "candidate", how="left")
+    results_normalization_topk = results_normalization_filter[results_normalization_filter["rank"] <= k][["candidate", "label", "query"]].drop_duplicates()
+    results_normalization_topk = results_normalization_topk[["candidate", "query"]].drop_duplicates().merge(grouped, on = "candidate", how="left")
     
     log_file=Path(f"tmp/log/{ID.lower()}_{entity}_log_file_{k}_{method}.log")
     failed_cases_file=Path(f"tmp/log/{ID.lower()}_{entity}_failed_cases_{k}_{method}.log")
     output_file=Path(f"tmp/{ID.lower()}_{entity}_LLM_{k}_{method}.tsv")
     
-    candidates_reranked = classify(results_noramlization_topk, output_file, log_file, failed_cases_file)
-    topk_candidates = results_noramlization_topk.groupby("query")["candidate"].apply(set).apply(list).reset_index().rename(columns={"candidate": "candidate_list"})
+    candidates_reranked = classify(results_normalization_topk, output_file, log_file, failed_cases_file)
+    topk_candidates = results_normalization_topk.groupby("query")["candidate"].apply(set).apply(list).reset_index().rename(columns={"candidate": "candidate_list"})
     candidates_reranked = candidates_reranked.merge(topk_candidates, on= "query", how="left")
     return candidates_reranked
     
 
-def rrf_reranker(results_noramlization, k, method):
+def rrf_reranker(results_normalization, k, method):
         if method == "combined":
-            results_noramlization_filter = results_noramlization[results_noramlization["method"] != "sapbert_cell"]
+            results_normalization_filter = results_normalization[results_normalization["method"] != "sapbert_cell"]
         else:
-            results_noramlization_filter = results_noramlization[results_noramlization["method"] != method]
-        topk_candidates_matrix= results_noramlization_filter.groupby(["query", "candidate", "method"])["rank"].min().reset_index().pivot(columns="method", values="rank", index=["query", "candidate"]).reset_index().fillna(np.inf)
+            results_normalization_filter = results_normalization[results_normalization["method"] != method]
+        topk_candidates_matrix= results_normalization_filter.groupby(["query", "candidate", "method"])["rank"].min().reset_index().pivot(columns="method", values="rank", index=["query", "candidate"]).reset_index().fillna(np.inf)
         if method == "combined":
            topk_candidates = topk_candidates_matrix[topk_candidates_matrix[["bm25", "fuzzy", "ngram", "sapbert"]].le(k).any(axis=1)]
         else:
@@ -103,12 +103,12 @@ def rrf_reranker(results_noramlization, k, method):
         
         return results_score_k
     
-def borda_reranker(results_noramlization, k, method):
+def borda_reranker(results_normalization, k, method):
         if method == "combined":
-            results_noramlization_filter = results_noramlization[results_noramlization["method"] != "sapbert_cell"]
+            results_normalization_filter = results_normalization[results_normalization["method"] != "sapbert_cell"]
         else:
-            results_noramlization_filter = results_noramlization[results_noramlization["method"] != method]
-        topk_candidates_matrix= results_noramlization_filter.groupby(["query", "candidate", "method"])["rank"].min().reset_index().pivot(columns="method", values="rank", index=["query", "candidate"]).reset_index().fillna(101)
+            results_normalization_filter = results_normalization[results_normalization["method"] != method]
+        topk_candidates_matrix= results_normalization_filter.groupby(["query", "candidate", "method"])["rank"].min().reset_index().pivot(columns="method", values="rank", index=["query", "candidate"]).reset_index().fillna(101)
         if method == "combined":
             topk_candidates = topk_candidates_matrix[topk_candidates_matrix[["bm25", "fuzzy", "ngram", "sapbert"]].le(k).any(axis=1)]
         else:
@@ -153,6 +153,9 @@ def main():
     k=args.k
     method=args.method
     entity=args.entity
+    
+    Path("/tmp/log/").mkdir(parents=True, exist_ok=True)
+    Path("/results/reranker/").mkdir(parents=True, exist_ok=True)
     
     # Load input data
     results_normalization = pd.read_csv(

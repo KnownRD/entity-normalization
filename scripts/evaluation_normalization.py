@@ -70,19 +70,22 @@ def exact_precision(df_val, exact_normalization, ontology_parse, entity, parents
         queries_norm_incorrect=None
 
 
-    print(f"number_terms {entity}: {exact_normalization['query'].nunique()}")
-    print(f"num_error_terms {entity}: {error_num}")
-    print(f"recall {entity}: {recall}")
-    print(f"num_error_terms_parents {entity}:  {error_num_parents}")
-    print(f"recall_parents {entity}: {recall_parents}")
-    print(f"num_error_terms_parents_children {entity}:  {error_num_parents_children}")
-    print(f"recall_parents-children {entity}: {recall_parents_children}")
+    output_file = f"/results/metrics_{entity}_{ID.lower()}_exact.txt"
+    
+    with open(output_file, "w") as f:
+        f.write(f"number_terms {entity}: {exact_normalization['query'].nunique()}\n")
+        f.write(f"num_error_terms {entity}: {error_num}\n")
+        f.write(f"recall {entity}: {recall}\n")
+        f.write(f"num_error_terms_parents {entity}: {error_num_parents}\n")
+        f.write(f"recall_parents {entity}: {recall_parents}\n")
+        f.write(f"num_error_terms_parents_children {entity}: {error_num_parents_children}\n")
+        f.write(f"recall_parents-children {entity}: {recall_parents_children}\n")
     return 
 
-def recall_per_method(positive_list_file, results_noramlization, entity, ID):
+def recall_per_method(positive_list_file, results_normalization, entity, ID):
     metrics_recall = {}
-    results_noramlization = results_noramlization[results_noramlization["method"] != "sapbert_cell"]
-    results_linker = results_noramlization.merge(positive_list_file, left_on="query", right_on="text", how="left").drop(columns={"text"})
+    results_normalization = results_normalization[results_normalization["method"] != "sapbert_cell"]
+    results_linker = results_normalization.merge(positive_list_file, left_on="query", right_on="text", how="left").drop(columns={"text"})
     results_linker["rank"] = results_linker["rank"].astype(int)
     results_linker["correct"] = (results_linker.apply(lambda row: row["candidate"] in row[ID],axis=1).astype(int))
     results_linker["correct"] = results_linker["correct"].fillna(0).astype(int)
@@ -200,11 +203,14 @@ def plot_recall(metrics_recall, entity):
     # plt.ylim(0.3, 1)
     plt.grid(True, color="gray", alpha=0.4, linestyle="-", linewidth=0.5)
     # plt.grid(True)
-    # plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
+    plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"/results/plots/recall_candidates_{entity}.png", dpi=300, bbox_inches="tight")
+    
+    plt.close()
+    
     return 
 
 def plot_accuracy(metrics_table, entity):
@@ -273,7 +279,10 @@ def plot_accuracy(metrics_table, entity):
         )
     
         plt.tight_layout()
-        plt.show()
+        plt.savefig(f"/results/plots/accuracy_candidates_{entity}.png", dpi=300, bbox_inches="tight")
+        
+        plt.close()
+        return
 
 
 def reranker_metrics(df, positive_list_file, parents, children, reranker, method, k, ID):  
@@ -339,21 +348,23 @@ def main():
 
     parser.add_argument("--positive_list_file", required=True)
     parser.add_argument("--exact_normalization", required=True)
-    parser.add_argument("--results_noramlization", required=True)
+    parser.add_argument("--results_normalization", required=True)
     parser.add_argument("--ontology_owl_file", required=True)
-    parser.add_argument("--entity", required=True)
     parser.add_argument("--ID", required=True)
     parser.add_argument("--k", type=int, default=100)
     parser.add_argument("--method", choices=["combined", "sapbert"], default="combined")
+    parser.add_argument("--entity", required=True)
 
     args = parser.parse_args()
     exact_normalization=args.exact_normalization
     positive_list_file=args.positive_list_file
     entity = args.entity
-    results_noramlization = args.results_noramlization
+    results_normalization = args.results_normalization
     ID = args.ID
     k= args.k
     method=args.method
+    
+    Path("/results/plots/").mkdir(parents=True, exist_ok=True)
     
     parents=True
     children=True
@@ -369,7 +380,7 @@ def main():
     exact_errors = exact_precision(positive_list_file, exact_normalization, ontology_parse, entity, parents, children, ID)
 
     # 2. Retrieval evaluation
-    recall_metrics = recall_per_method(positive_list_file, results_noramlization, entity, ID)
+    recall_metrics = recall_per_method(positive_list_file, results_normalization, entity, ID)
 
     # 3. Plot retrieval results
     plot_recall(recall_metrics, entity)

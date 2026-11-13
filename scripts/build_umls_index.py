@@ -11,7 +11,7 @@ INDICES = Path("data/indices")
 PROCESSED.mkdir(parents=True, exist_ok=True)
 (INDICES / "faiss").mkdir(parents=True, exist_ok=True)
 
-df = parse_ontology_df(RAW / "MRCONSO_ENG.RRF", "cell")
+df = parse_ontology_df(RAW / "MRCONSO.RRF", "cell")
 df.to_parquet(PROCESSED / "umls_cell_concepts.parquet", index=False)
 
 build_lexical_docs(df, PROCESSED / "umls_cell_lexical_docs.jsonl")

@@ -4,6 +4,7 @@ import pandas as pd
 def parse_ontology_df(path: str | Path, sty = None)-> pd.DataFrame:
     columns_name=["CUI","LAT","TS","LUI","STT","SUI","ISPREF","AUI","SAUI","SCUI","SDUI","SAB","TTY","CODE","STR","SRL","SUPPRESS","CVF"]
     umls_parse = pd.read_table(str(path),sep="|",index_col=False, names=columns_name)
+    umls_parse = umls_parse[umls_parse["LAT"] == "ENG"]
     sty_file=pd.read_table(Path("data/raw/MRSTY.RRF"),sep="|", index_col=False, header=0, names=["CUI", "TUI", "STN", "STY", "ATUI", "CVF"])
 
     if sty == "cell":
