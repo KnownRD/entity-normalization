@@ -260,8 +260,19 @@ Results are generated during pipeline execution and are not included in the repo
 ---
 
 ## Funding
-This project was supported by a grant from the Fundación Isabel Gemio.
-![Workflow description](images/logo-fundacion-isabel-gemio.png)
+<table width="120%" border="0">
+  <tr>
+    <td align="left" valign="middle" width="75%">
+      This project was supported by a grant from the Fundación Isabel Gemio.
+    </td>
+    <td align="right" valign="middle" width="45%">
+      <img src="./images/logo-fundacion-isabel-gemio.png"
+           alt="Fundación Isabel Gemio"
+           width="500">
+    </td>
+  </tr>
+</table>
+
 
 ## Citation
 
