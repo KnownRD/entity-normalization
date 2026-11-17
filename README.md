@@ -1,6 +1,6 @@
-<img src="images/Logo KnownRD.png.png" alt="Workflow" width="700">
+<img src="images/Logo KnownRD .png" alt="KnownRD" width="300">
 
-# KnownRD – Biomedical Entity Normalization
+# Biomedical Entity Normalization
 
 Entity-normalization is a modular biomedical named entity normalization (NEN) pipeline that links biomedical mentions to standardized concepts in biomedical reference ontologies.
 
