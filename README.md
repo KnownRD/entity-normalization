@@ -259,5 +259,9 @@ Results are generated during pipeline execution and are not included in the repo
 
 ---
 
+## Funding
+This project was supported by a grant from the Fundación Isabel Gemio.
+![Workflow description](images/logo-fundacion-isabel-gemio.png)
+
 ## Citation
 

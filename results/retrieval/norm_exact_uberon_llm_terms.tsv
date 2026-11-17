@@ -1,0 +1,62 @@
+candidate	label	score	method	synonym_type	rank	query
+UBERON:0000948	heart	1000.0	exact	label	1	heart
+UBERON:0007100	heart	1000.0	exact	narrow	1	heart
+UBERON:0015228	heart	1000.0	exact	broad	1	heart
+UBERON:0015230	heart	1000.0	exact	related	1	heart
+UBERON:0002085	atrial septum	1000.0	exact	exact	1	atrial septum
+UBERON:0002094	ventricular septum	1000.0	exact	related	1	ventricular septum
+UBERON:0002228	ribs	1000.0	exact	related	1	ribs
+UBERON:0003672	teeth	1000.0	exact	exact	1	teeth
+UBERON:0003672	teeth	1000.0	exact	related	1	teeth
+UBERON:0002113	kidney	1000.0	exact	label	1	kidney
+UBERON:0002107	liver	1000.0	exact	label	1	liver
+UBERON:0002106	spleen	1000.0	exact	label	1	spleen
+UBERON:0001017	central nervous system	1000.0	exact	label	1	central nervous system
+UBERON:0002102	upper limb	1000.0	exact	exact	1	upper limb
+UBERON:0010708	upper limb	1000.0	exact	related	1	upper limb
+UBERON:0001456	face	1000.0	exact	label	1	face
+UBERON:0005409	gastrointestinal tract	1000.0	exact	related	1	gastrointestinal tract
+UBERON:0001103	diaphragm	1000.0	exact	label	1	diaphragm
+UBERON:0000955	brain	1000.0	exact	label	1	brain
+UBERON:6110636	brain	1000.0	exact	related	1	brain
+UBERON:0000019	eye	1000.0	exact	broad	1	eye
+UBERON:0000970	eye	1000.0	exact	label	1	eye
+UBERON:0010230	eye	1000.0	exact	related	1	eye
+UBERON:0001130	vertebral column	1000.0	exact	label	1	vertebral column
+UBERON:0002371	bone marrow	1000.0	exact	label	1	bone marrow
+UBERON:0002370	thymus	1000.0	exact	label	1	thymus
+UBERON:0003728	mediastinum	1000.0	exact	label	1	mediastinum
+UBERON:0001637	arteries	1000.0	exact	exact	1	arteries
+UBERON:0001135	smooth muscle	1000.0	exact	exact	1	smooth muscle
+UBERON:0001474	bone	1000.0	exact	related	1	bone
+UBERON:0002481	bone	1000.0	exact	related	1	bone
+UBERON:0000014	skin	1000.0	exact	exact	1	skin
+UBERON:0001003	skin	1000.0	exact	broad	1	skin
+UBERON:0002097	skin	1000.0	exact	related	1	skin
+UBERON:0002199	skin	1000.0	exact	related	1	skin
+UBERON:0002072	subcutaneous tissue	1000.0	exact	related	1	subcutaneous tissue
+UBERON:0011818	subcutaneous tissue	1000.0	exact	exact	1	subcutaneous tissue
+UBERON:0000982	joints	1000.0	exact	related	1	joints
+UBERON:0004535	cardiovascular system	1000.0	exact	label	1	cardiovascular system
+UBERON:0000947	aorta	1000.0	exact	label	1	aorta
+UBERON:0002349	myocardium	1000.0	exact	label	1	myocardium
+UBERON:0004537	blood vessels	1000.0	exact	related	1	blood vessels
+UBERON:0002067	dermis	1000.0	exact	label	1	dermis
+UBERON:0001003	epidermis	1000.0	exact	broad	1	epidermis
+UBERON:0007376	epidermis	1000.0	exact	exact	1	epidermis
+UBERON:0001013	adipose tissue	1000.0	exact	label	1	adipose tissue
+UBERON:0002418	cartilage	1000.0	exact	related	1	cartilage
+UBERON:0007844	cartilage	1000.0	exact	related	1	cartilage
+UBERON:0001105	clavicle	1000.0	exact	exact	1	clavicle
+UBERON:0011658	clavicle	1000.0	exact	related	1	clavicle
+UBERON:0000376	femur	1000.0	exact	related	1	femur
+UBERON:0000981	femur	1000.0	exact	label	1	femur
+UBERON:0003826	femur	1000.0	exact	related	1	femur
+UBERON:0002420	basal ganglia	1000.0	exact	related	1	basal ganglia
+UBERON:0006098	basal ganglia	1000.0	exact	related	1	basal ganglia
+UBERON:0010011	basal ganglia	1000.0	exact	exact	1	basal ganglia
+UBERON:0002038	substantia nigra	1000.0	exact	label	1	substantia nigra
+UBERON:0000956	cerebral cortex	1000.0	exact	label	1	cerebral cortex
+UBERON:0001875	globus pallidus	1000.0	exact	label	1	globus pallidus
+UBERON:0002037	cerebellum	1000.0	exact	label	1	cerebellum
+UBERON:0002298	brainstem	1000.0	exact	label	1	brainstem

@@ -38,7 +38,7 @@ class LexicalRetriever:
             embeddings_path
             )
         self.all_reps_emb_cell = np.load(
-            Path("/data/processed/CellExLink_sapbert_embeddings.npy")
+            Path("data/processed/CellExLink_sapbert_embeddings.npy")
             )      
     def char_ngrams(self, text: str, n: int = 3) -> set[str]:
         text = normalize_text(text).replace(" ", "_")

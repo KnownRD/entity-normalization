@@ -18,26 +18,27 @@ import argparse
 from pathlib import Path
 from entity_normalization.retrieve_candidates import LexicalRetriever
 
-parser = argparse.ArgumentParser()
-
-parser.add_argument("--terms_file", required=True)
-parser.add_argument("--output_file_name", required=True)
-parser.add_argument("--output_exact_name", required=True)
-parser.add_argument("--lexical_jsonl_file", required=True)
-parser.add_argument("--embeddings_path", required=True)
-
-args = parser.parse_args()
-
-llm_terms_file = args.terms_file
-output_file = Path(f"results/retrieval/{args.output_file_name}")
-output_exact = Path(f"results/retrieval/{args.output_exact_name}")
-lexical_jsonl_file= args.lexical_jsonl_file
-embeddings_path=args.embeddings_path
-
-Path("/results/retrieval/").mkdir(parents=True, exist_ok=True)
 
 
 def main():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--terms_file", required=True)
+    parser.add_argument("--output_file_name", required=True)
+    parser.add_argument("--output_exact_name", required=True)
+    parser.add_argument("--lexical_jsonl_file", required=True)
+    parser.add_argument("--embeddings_path", required=True)
+
+    args = parser.parse_args()
+
+    llm_terms_file = args.terms_file
+    output_file = Path(f"results/retrieval/{args.output_file_name}")
+    output_exact = Path(f"results/retrieval/{args.output_exact_name}")
+    lexical_jsonl_file= args.lexical_jsonl_file
+    embeddings_path=args.embeddings_path
+
+    Path("results/retrieval/").mkdir(parents=True, exist_ok=True)
+
     
     for f in [output_file, output_exact]: # if the output files exists rm them
         if os.path.exists(f):
