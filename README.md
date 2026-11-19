@@ -278,3 +278,4 @@ Results are generated during pipeline execution and are not included in the repo
 
 ## Citation
 
+Amil, A., & Chagoyen, M. (2026). A modular workflow for biomedical entity normalization across heterogeneous biological ontologies. bioRxiv. https://doi.org/10.64898/2026.11.17.767229
